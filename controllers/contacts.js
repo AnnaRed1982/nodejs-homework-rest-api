@@ -1,21 +1,13 @@
-const Joi = require("joi");
-
 const contacts = require("../models/contacts");
 
 const { HttpError, ctrlWrapper } = require("../helpers");
 
-const addSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().required(),
-  phone: Joi.string().required(),
-});
-
-const getAll = async (req, res, next) => {
+const getAll = async (req, res) => {
   const result = await contacts.listContacts();
   res.json(result);
 };
 
-const getById = async (req, res, next) => {
+const getById = async (req, res) => {
   const { contactId } = req.params;
   const result = await contacts.getContactById(contactId);
   if (!result) {
@@ -24,20 +16,12 @@ const getById = async (req, res, next) => {
   res.json(result);
 };
 
-const add = async (req, res, next) => {
-  const { error } = addSchema.validate(req.body);
-  if (error) {
-    throw HttpError(400, error.message);
-  }
+const add = async (req, res) => {
   const result = await contacts.addContact(req.body);
   res.status(201).json(result);
 };
 
-const updateById = async (req, res, next) => {
-  const { error } = addSchema.validate(req.body);
-  if (error) {
-    throw HttpError(400, "missing fields");
-  }
+const updateById = async (req, res) => {
   const { contactId } = req.params;
   const result = await contacts.updateContact(contactId, req.body);
   if (!result) {
@@ -46,7 +30,7 @@ const updateById = async (req, res, next) => {
   res.json(result);
 };
 
-const deleteById = async (req, res, next) => {
+const deleteById = async (req, res) => {
   const { contactId } = req.params;
   const result = await contacts.removeContact(contactId);
   if (!result) {
