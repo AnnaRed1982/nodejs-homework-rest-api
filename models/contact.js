@@ -45,10 +45,18 @@ const addSchema = Joi.object({
   favorite: Joi.boolean(),
 });
 
-const updateFavoriteSchema = Joi.object({ favorite: Joi.boolean().required() });
+const updateFavoriteSchema = Joi.object({
+  favorite: Joi.boolean().required().messages({
+    "any.required": `missing field favorite`,
+  }),
+});
 
 const schemas = { addSchema, updateFavoriteSchema };
 
 const Contact = model("contact", contactSchema);
 
 module.exports = { Contact, schemas };
+
+// "string.base": `"a" should be a type of 'text'`,
+// "string.empty": `"a" cannot be an empty field`,
+// "string.min": `"a" should have a minimum length of {#limit}`,
