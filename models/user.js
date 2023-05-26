@@ -3,9 +3,7 @@ const Joi = require("joi");
 
 const { handleMongooseError } = require("../helpers");
 
-// const telRegex = /^\(([0-9]{3})\)( )([0-9]{3})-([0-9]{4})$/;
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-
 
 const userSchema = new Schema(
   {
@@ -36,7 +34,7 @@ const userSchema = new Schema(
 userSchema.post("save", handleMongooseError);
 
 const registerSchema = Joi.object({
-//   name: Joi.string().required(),
+  //   name: Joi.string().required(),
   email: Joi.string().regex(emailRegex).required(),
   password: Joi.string().min(6).required(),
 });

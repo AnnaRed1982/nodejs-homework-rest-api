@@ -28,11 +28,11 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (!user) {
-    throw HttpError(401, "Email or password is invalid");
+    throw HttpError(401, "Email or password is wrong");
   }
   const passwordCompare = await bcryptjs.compare(password, user.password);
   if (!passwordCompare) {
-    throw HttpError(401, "Email or password is invalid");
+    throw HttpError(401, "Email or password is wrong");
   }
 
   const payload = { id: user._id };
@@ -40,20 +40,23 @@ const login = async (req, res) => {
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
   await User.findByIdAndUpdate(user._id, { token });
 
-  res.json({ token });
+  res.json({
+    token,
+    user: { email: user.email, subscription: user.subscription },
+  });
 };
 
 const getCurrent = async (req, res) => {
-  const { email } = req.user;
+  const { email, subscription } = req.user;
 
-  res.json({ email });
+  res.json({ email, subscription });
 };
 
 const logout = async (req, res) => {
   const { _id } = req.user;
   await User.findByIdAndUpdate(_id, { token: null });
 
-  res.json({ message: "Logout is successed" });
+  res.status(204).json({ message: "Logout is successed" });
 };
 
 module.exports = {
