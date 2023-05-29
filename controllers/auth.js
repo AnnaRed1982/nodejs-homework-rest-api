@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../models/user");
 
 const { HttpError, ctrlWrapper } = require("../helpers");
-// const { subscribe } = require("../routes/api/auth");
 
 const { SECRET_KEY } = process.env;
 
