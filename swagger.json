@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "version": "0.0.0",
+    "version": "1.0.0",
     "title": "Swagger test",
     "description": "Showing off swagger-ui-express",
     "license": {
@@ -9,20 +9,20 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "consumes": ["application/json"],
+  "consumes": ["application/json, multipart/form-data"],
   "produces": ["application/json"],
   "servers": [{ "url": "https://project-backend-31xl.onrender.com/" }],
   "tags": [
     {
-      "name": "Auth",
+      "name": "User",
       "description": "Authorization endpoints"
     }
   ],
   "paths": {
     "/api/auth/register": {
       "post": {
-        "tags": ["Auth"],
-        "summary": "User registration",
+        "tags": ["User"],
+        "summary": "Create a new user",
         "parameters": [],
         "security": [{ "Bearer": [] }],
         "requestBody": {
@@ -38,7 +38,7 @@
         },
         "responses": {
           "201": {
-            "description": "Successful operation",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -52,7 +52,7 @@
             "content": {}
           },
           "409": {
-            "description": "Provided email already exists",
+            "description": "Email is in use",
             "content": {}
           }
         }
