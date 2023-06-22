@@ -87,16 +87,14 @@
               "description": "User's email",
               "format": "email"
             },
-            "userId": {
-              "type": "number",
-              "description": "User's id",
-              "example": "32143232436545474"
+            "subscription": {
+              "type": "string",
+              "description": "Type of user's subscription"
             }
           }
         },
         "example": [
-          { "email": "1@gmail.com", "userId": "1" },
-          { "email": "2@gmail.com", "userId": "2" }
+          { "email": "1@gmail.com", "subscription": "starter" }       
         ]
       }
     },
