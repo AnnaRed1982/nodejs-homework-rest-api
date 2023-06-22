@@ -93,9 +93,9 @@
             }
           }
         },
-        "example": [
-          { "email": "1@gmail.com", "subscription": "starter" }       
-        ]
+        "example":
+          { "email": "user@example.com", "subscription": "starter" }       
+        
       }
     },
     "securitySchemes": {
